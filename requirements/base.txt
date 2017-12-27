@@ -1,4 +1,4 @@
-# Django geocoding for models dependencies 
+# Django geocoding for models dependencies
 # Django maybe missing here if multiple verssions are to be tested and installed by tox
 # For development we keep them unfreezed to work and test on newest versions as soon as they are released
 # Freezing can be perforemd by pip-compile or pipenv
@@ -12,7 +12,7 @@ django-import-export
 django-localflavor
 django-pascal-templates
 # django-polymodels
-# django-powerbank
+django-powerbank
 # django-reversion
 # django_email_queue
 enum34 ; python_version < '3.4'
