@@ -43,7 +43,7 @@ Abstract base models and mixins to store address and GPS coordinates info
 Features
 --------
 
-* Pending :D
+* AbstractLocation base model with opencage geocoding support
 
 Demo
 ----
