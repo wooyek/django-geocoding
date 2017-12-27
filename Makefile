@@ -119,11 +119,14 @@ upgrade: ## upgrade frozen requirements to the latest version
 	pipenv lock --requirements > requirements.txt
 	sort requirements.txt -o requirements.txt
 
-release: sync bump publish ## build new package version release then upload to pypi
+release: sync bump dist ## build new package version release locally
 	git checkout develop
 	git merge master --verbose
 	git push origin develop --verbose
 	git push origin master --verbose
+
+deploy: release publish ## build new package version release then upload to pypi
+
 
 locales:
 	# https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-makemessages
