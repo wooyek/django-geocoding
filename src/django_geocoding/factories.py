@@ -1,27 +1,23 @@
 # coding=utf-8
+# Copyright 2015 Brave Labs sp. z o.o.
+# All rights reserved.
+#
+# This source code and all resulting intermediate files are CONFIDENTIAL and
+# PROPRIETY TRADE SECRETS of Brave Labs sp. z o.o.
+# Use is subject to license terms. See NOTICE file of this project for details.
 import factory
-import faker
-from django.contrib.auth import get_user_model
-
 from . import models
 
-fake = faker.Faker()
 
-
-class UserFactory(factory.DjangoModelFactory):
-    first_name = factory.Faker('first_name')
-    last_name = factory.Faker('last_name')
-    email = factory.Faker('email')
-    username = factory.Sequence(lambda n: fake.user_name() + str(n))
-    is_staff = False
-    is_active = True
-
+class AbstractAddressFactory(factory.DjangoModelFactory):
     class Meta:
-        model = get_user_model()
+        model = models.AbstractAddress
 
-
-class SampleModelFactory(factory.DjangoModelFactory):
-    name = factory.Faker('name')
-
-    class Meta:
-        model = models.SampleModel
+    street = factory.Faker("street")
+    street_no = factory.Faker("building_number")
+    flat_no = factory.Faker("building_number")
+    postal_code = factory.Faker("postcode")
+    post_town = factory.Faker("city")
+    city_town = factory.Faker("city")
+    municipality = factory.Faker("city")
+    country = factory.Faker("country")
