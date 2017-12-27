@@ -1,50 +1,15 @@
 import logging
-import pytz
-from django.contrib.gis.db.models import PointField, Q
-from django.core.exceptions import ValidationError
 
+import pytz
+from django.contrib.gis.db.models import PointField
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
-from django_tasker.decoration import queueable
+
+# from django_tasker.decoration import queueable
 
 COUNTRY_CHOICES = sorted(pytz.country_names.items(), key=lambda x: x[1])
-
-
-def geocode_lat_lng(address):
-    from opencage.geocoder import OpenCageGeocode
-    from django.conf import settings
-    api_key = settings.OPENCAGE_API_KEY
-    geocoder = OpenCageGeocode(api_key)
-    location = geocoder.geocode(address)
-
-    if location:
-        return location[0]['geometry']['lat'], location[0]['geometry']['lng']
-    return None, None
-
-
-def geocode_address(model):
-    location = geocode_location(model.location)
-    logging.debug("location: %s", location)
-    if location:
-        location = location[0]
-        model.lat = location['geometry'].get('lat')
-        model.lng = location['geometry'].get('lng')
-        model.street = location['components'].get('road')
-        model.street_no = location['components'].get('house_number')
-        model.postal_code = location['components'].get('postcode')
-        model.city_town = location['components'].get('city')
-        model.municipality = location['components'].get('state')
-        model.country = (location['components'].get('country_code') or '').upper()
-    return model
-
-
-def geocode_location(location):
-    from opencage.geocoder import OpenCageGeocode
-    from django.conf import settings
-    geocoder = OpenCageGeocode(settings.OPENCAGE_API_KEY)
-    location = geocoder.geocode(location)
-    return location
 
 
 class AbstractAddress(models.Model):
@@ -123,14 +88,14 @@ class AbstractLocation(models.Model):
         self.municipality = exiting.municipality
         self.country = exiting.country
 
-    @queueable(queue='geocoding', rate_limit=100)
+    # @queueable(queue='geocoding', rate_limit=100)
     def geocode(self):
         self._geocode()
 
     def _geocode(self):
         logging.debug("self.location: %s", self.location)
         assert self.location
-        from geocoding.models import geocode_address
+        from django_geocoding.backends.opencage import geocode_address
         geocode_address(self)
         self.save()
 

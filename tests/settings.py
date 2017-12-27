@@ -25,6 +25,7 @@ SECRET_KEY = env('SECRET_KEY')
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {}
+SPATIALITE_LIBRARY_PATH = 'mod_spatialite'
 
 if "DATABASE_URL" in os.environ:  # pragma: no cover
     DATABASES['default'] = env.db()
@@ -35,7 +36,7 @@ if "DATABASE_URL" in os.environ:  # pragma: no cover
     }
 else:
     DATABASES['default'] = {
-        "ENGINE": "django.db.backends.sqlite3",
+        'ENGINE': 'django.contrib.gis.db.backends.spatialite',
         "NAME": ":memory:",
         'TEST': {
             "NAME": ":memory:",
@@ -53,6 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     "django_geocoding.apps.DjangoGeocodingConfig",
+    "tests.test_app",
 ]
 
 ROOT_URLCONF = 'tests.urls'
@@ -140,3 +142,5 @@ LOGGING = {
         'handlers': ['console'],
     }
 }
+
+OPENCAGE_API_KEY = env('OPENCAGE_API_KEY')
