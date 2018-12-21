@@ -1,3 +1,5 @@
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fwooyek%2Fdjango-geocoding.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fwooyek%2Fdjango-geocoding?ref=badge_shield)
+
 ===========================
 Django geocoding for models
 ===========================
@@ -109,3 +111,6 @@ This package was created with Cookiecutter_ and the `wooyek/cookiecutter-django-
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`wooyek/cookiecutter-django-app`: https://github.com/wooyek/cookiecutter-django-app
 .. _`pipenv`: https://docs.pipenv.org/install#fancy-installation-of-pipenv
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fwooyek%2Fdjango-geocoding.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fwooyek%2Fdjango-geocoding?ref=badge_large)
